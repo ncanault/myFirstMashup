@@ -22,6 +22,8 @@ require( ["js/qlik"], function ( qlik ) {
 	} );
 
 	//callbacks -- inserted here --
+	function Dropdownlist_Regions(reply, app){}
+
 	//open apps -- inserted here --
 	var app = qlik.openApp('4508f0bd-60ea-4f4e-aa19-31e9ee8ed27d', config);
 	
@@ -29,5 +31,20 @@ require( ["js/qlik"], function ( qlik ) {
 	app.getObject('09','ZMbPeHA'); 
 	
 	//create cubes and lists -- inserted here --
-
+	app.createList({
+		"qFrequencyMode": "V",
+		"qDef": {
+				"qFieldDefs": [
+						"Region"
+				]
+		},
+		"qExpressions": [],
+		"qInitialDataFetch": [
+				{
+						"qHeight": 20,
+						"qWidth": 1
+				}
+		],
+		"qLibraryId": null
+	},Dropdownlist_Regions);
 } );
