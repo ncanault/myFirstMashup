@@ -22,7 +22,24 @@ require( ["js/qlik"], function ( qlik ) {
 	} );
 
 	//callbacks -- inserted here --
-	function Dropdownlist_Regions(reply, app){}
+	function Dropdownlist_Regions(reply, app){
+		console.log("Test fonction remplissage de dropdown");
+		$('#myRegionDropDown .dropdown ul').empty()  
+		console.log("1");
+		$.each(reply.qListObject.qDataPages[0].qMatrix, function(key, value) {  
+			console.log("2 - " + value[0].qText); 
+				if (typeof value[0].qText !== 'undefined') { 
+					console.log("3 - " + value[0].qText); 
+					$('#myRegionDropDown .dropdown ul').append('<li><a data-select="'+ value[0].qText+'" href="#">'+ value[0].qText+'</a></li>')
+					.on( "click", "[data-select]", function() {  
+					var value = $(this).data('select');  
+					console.log("4 - Listener on " + value);
+					$('#myRegionDropDown .dropdown button').html(value + ' <span class="caret"></span>');  
+					app.field('Region').selectMatch(value, false);  
+					}); 
+				}
+		}); 
+	}
 
 	//open apps -- inserted here --
 	var app = qlik.openApp('4508f0bd-60ea-4f4e-aa19-31e9ee8ed27d', config);
@@ -45,6 +62,6 @@ require( ["js/qlik"], function ( qlik ) {
 						"qWidth": 1
 				}
 		],
-		"qLibraryId": null
+		//"qLibraryId": null
 	},Dropdownlist_Regions);
 } );
