@@ -22,6 +22,8 @@ require( ["js/qlik"], function ( qlik ) {
 	} );
 
 	//callbacks -- inserted here --
+	function hyperCube_FC_N(reply, app){}
+
 	function Dropdownlist_Regions(reply, app){
 		console.log("Test fonction remplissage de dropdown");
 		$('#myRegionDropDown .dropdown ul').empty()  
@@ -64,4 +66,56 @@ require( ["js/qlik"], function ( qlik ) {
 		],
 		//"qLibraryId": null
 	},Dropdownlist_Regions);
+	app.createCube({
+	"qInitialDataFetch": [
+		{
+			"qHeight": 12,
+			"qWidth": 2
+		}
+	],
+	"qDimensions": [
+		{
+			"qDef": {
+				"qFieldDefs": [
+					"=Month(Date_ID)"
+				]
+			},
+			"qNullSuppression": true,
+			"qOtherTotalSpec": {
+				"qOtherMode": "OTHER_OFF",
+				"qSuppressOther": true,
+				"qOtherSortMode": "OTHER_SORT_DESCENDING",
+				"qOtherCounted": {
+					"qv": "5"
+				},
+				"qOtherLimitMode": "OTHER_GE_LIMIT"
+			}
+		}
+	],
+	"qMeasures": [
+		{
+			"qDef": {
+				"qDef": "=Sum({<Date_ID={'>=$(vCurrentYearFrom)<=$(vCurrentYearTo)'}>} [Cons Selling FC])"
+			},
+			"qLabel": "=Sum({<Date_ID={'>=$(vCurrentYearFrom)<=$(vCurrentYearTo)'}>} [Cons Selling FC])",
+			"qLibraryId": null,
+			"qSortBy": {
+				"qSortByState": 0,
+				"qSortByFrequency": 0,
+				"qSortByNumeric": 0,
+				"qSortByAscii": 1,
+				"qSortByLoadOrder": 0,
+				"qSortByExpression": 0,
+				"qExpression": {
+					"qv": " "
+				}
+			}
+		}
+	],
+	"qSuppressZero": false,
+	"qSuppressMissing": false,
+	"qMode": "P",
+	"qInterColumnSortOrder": [],
+	"qStateName": "$"
+	},hyperCube_FC_N);
 } );
