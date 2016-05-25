@@ -66,6 +66,7 @@ require( ["js/qlik"], function ( qlik ) {
 		],
 		//"qLibraryId": null
 	},Dropdownlist_Regions);
+	
 	app.createCube({
 	"qInitialDataFetch": [
 		{
@@ -118,4 +119,6 @@ require( ["js/qlik"], function ( qlik ) {
 	"qInterColumnSortOrder": [],
 	"qStateName": "$"
 	},hyperCube_FC_N);
+	
+	
 } );
